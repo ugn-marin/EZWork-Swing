@@ -77,9 +77,9 @@ public abstract class Appearance {
         } catch (Exception ignore) {}
     }
 
-    public static void setButtonDarken(JButton button) {
+    public static void setButtonBaseColor(JButton button) {
         try {
-            button.setBackground(((Color) UIManager.get("nimbusBlueGrey")).darker());
+            button.setBackground((Color) UIManager.get("nimbusBase"));
         } catch (Exception ignore) {}
     }
 
