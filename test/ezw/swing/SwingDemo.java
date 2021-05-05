@@ -9,6 +9,8 @@ import static ezw.swing.ManualLayout.*;
 
 public class SwingDemo extends JFrame {
 
+    private static final Dimension buttonSize = new Dimension(100, 25);
+
     private final JPanel panel;
     private final JLabel label;
     private final JButton button1;
@@ -30,8 +32,6 @@ public class SwingDemo extends JFrame {
         setMinimumSize(new Dimension(400, 230));
         setIconImage(getIcon());
         setLocationRelativeTo(null);
-
-        Dimension buttonSize = new Dimension(100, 25);
 
         panel = new JPanel() {
             @Override
@@ -66,7 +66,6 @@ public class SwingDemo extends JFrame {
         panel.add(button1);
 
         progress = new JProgressBar();
-        progress.setSize(buttonSize);
         progress.setValue(20);
         panel.add(progress);
 
@@ -95,6 +94,7 @@ public class SwingDemo extends JFrame {
     private void manualLayout() {
         putInTopLeftCorner(scroll, 2);
         stretchRightIn(panel, scroll, 2);
+        progress.setSize(buttonSize);
         putInBottomLeftCornerIn(panel, progress, 4);
         putToTheRightOf(progress, button3, 10);
         putAbove(progress, button1, 8);
@@ -102,6 +102,7 @@ public class SwingDemo extends JFrame {
         putInBottomRightCornerIn(panel, button4, 4);
         putAbove(button1, label, 8);
         stretchDownTowards(label, scroll, 8);
+        resizeCentered(progress, progress.getWidth() - 8, 12);
         scroll.revalidate();
         repaint();
     }

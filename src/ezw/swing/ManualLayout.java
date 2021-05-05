@@ -84,4 +84,9 @@ public abstract class ManualLayout {
     public static void stretchRightTowards(Component reference, Component component, int margin) {
         component.setSize(reference.getX() - component.getX() - margin, component.getY());
     }
+
+    public static void resizeCentered(Component component, int width, int height) {
+        component.setBounds(component.getX() + (component.getWidth() - width) / 2, component.getY() +
+                (component.getHeight() - height) / 2, width, height);
+    }
 }
