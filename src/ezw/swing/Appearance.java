@@ -3,42 +3,79 @@ package ezw.swing;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Various look and feel utilities.
+ */
 public abstract class Appearance {
 
     private Appearance() {}
 
+    /**
+     * Applies the Nimbus look and feel.
+     */
     public static void setNimbus() {
         setNimbus(null);
     }
 
+    /**
+     * Applies the Nimbus look and feel with a base color override.
+     * @param base The base color of Nimbus objects.
+     */
     public static void setNimbus(Color base) {
         setNimbus(base, null, null, null);
     }
 
+    /**
+     * Applies a light Nimbus look and feel with a base and focus colors override.
+     * @param base The base color of Nimbus objects.
+     * @param focus The focus color, mostly affects the focus glow, text selection and progress color.
+     */
     public static void setNimbusLight(Color base, Color focus) {
         setNimbus(base, focus, Color.darkGray, mix(Color.white, Color.lightGray, 0.1D));
     }
 
+    /**
+     * Applies a dark Nimbus look and feel with a base and focus colors override.
+     * @param base The base color of Nimbus objects.
+     * @param focus The focus color, mostly affects the focus glow, text selection and progress color.
+     */
     public static void setNimbusDark(Color base, Color focus) {
         setNimbus(base, focus, Color.white, mix(Color.darkGray, Color.black, 0.1D));
     }
 
+    /**
+     * Applies a white Nimbus look and feel.
+     */
     public static void setNimbusWhite() {
         setNimbusWhite(null);
     }
 
+    /**
+     * Applies a white Nimbus look and feel with a focus color override.
+     * @param focus The focus color, mostly affects the focus glow, text selection and progress color.
+     */
     public static void setNimbusWhite(Color focus) {
         setNimbusLight(Color.lightGray, focus);
     }
 
+    /**
+     * Applies a black Nimbus look and feel.
+     */
     public static void setNimbusBlack() {
         setNimbusBlack(null);
     }
 
+    /**
+     * Applies a black Nimbus look and feel with a focus color override.
+     * @param focus The focus color, mostly affects the focus glow, text selection and progress color.
+     */
     public static void setNimbusBlack(Color focus) {
         setNimbusDark(Color.black, focus);
     }
 
+    /**
+     * Applies a dark blue Nimbus look and feel.
+     */
     public static void setNimbusDarkBlueish() {
         var blueish = mix(Color.blue, Color.green, 0.2D);
         setNimbus(mix(mix(blueish, Color.darkGray, 0.7D).darker(), Color.black, 0.4D),
@@ -47,6 +84,13 @@ public abstract class Appearance {
                 mix(blueish.darker(), Color.darkGray, 0.9D));
     }
 
+    /**
+     * Applies the Nimbus look and feel, with optional color modifications. Null colors are ignored (remain default).
+     * @param base The base color of Nimbus objects.
+     * @param focus The focus color, mostly affects the focus glow, text selection and progress color.
+     * @param foreground The default text color.
+     * @param background The default background and control color.
+     */
     public static void setNimbus(Color base, Color focus, Color foreground, Color background) {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -77,12 +121,18 @@ public abstract class Appearance {
         } catch (Exception ignore) {}
     }
 
+    /**
+     * Sets the button background according to the base color of the Nimbus look and feel if applied.
+     */
     public static void setButtonBaseColor(JButton button) {
         try {
             button.setBackground((Color) UIManager.get("nimbusBase"));
         } catch (Exception ignore) {}
     }
 
+    /**
+     * Constructs an equal mix color of the provided colors.
+     */
     public static Color mix(Color... colors) {
         if (colors.length == 0)
             return Color.gray;
@@ -93,6 +143,13 @@ public abstract class Appearance {
         return color;
     }
 
+    /**
+     * Constructs a mix color of the provided colors, according to the amount of the color to add.
+     * @param base The base color.
+     * @param add The color to add to base.
+     * @param amount The proportional amount of the color to add (between 0 and 1).
+     * @return The mixed color.
+     */
     public static Color mix(Color base, Color add, double amount) {
         return new Color(mix(base.getRed(), add.getRed(), amount),
                 mix(base.getGreen(), add.getGreen(), amount),
@@ -104,6 +161,10 @@ public abstract class Appearance {
         return (int) (((double) base) * (1D - amount) + ((double) add) * amount);
     }
 
+    /**
+     * Sets rendering hints in the graphics object, like antialiasing, quality color rendering, bilinear interpolation,
+     * sub-pixel accuracy of shapes and more.
+     */
     public static void applyQualityRendering(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
