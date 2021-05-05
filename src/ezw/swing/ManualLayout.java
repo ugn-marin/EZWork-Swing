@@ -7,23 +7,33 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.function.Consumer;
 
+/**
+ * Utility methods for manually manipulating components' size and location in a layout-less parent.
+ */
 public abstract class ManualLayout {
 
     private ManualLayout() {}
 
-    public static void registerLayout(Window parent, Consumer<ComponentEvent> layout) {
+    /**
+     * Registers a manual layout operation for a parent's resize events, and window state change events if is a Window.
+     * @param parent The parent component.
+     * @param manualLayout The manual layout operation.
+     */
+    public static void registerLayout(Component parent, Consumer<ComponentEvent> manualLayout) {
         parent.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                layout.accept(e);
+                manualLayout.accept(e);
             }
         });
-        parent.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowStateChanged(WindowEvent e) {
-                layout.accept(e);
-            }
-        });
+        if (parent instanceof Window) {
+            ((Window) parent).addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowStateChanged(WindowEvent e) {
+                    manualLayout.accept(e);
+                }
+            });
+        }
     }
 
     public static void putInTopLeftCorner(Component component, int margin) {

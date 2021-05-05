@@ -85,6 +85,8 @@ public class SwingDemo extends JFrame {
         button4 = new JButton("OK");
         button4.setSize(buttonSize);
         button4.setToolTipText("OK");
+        button4.addActionListener(e -> JOptionPane.showMessageDialog(this, "Example", "Title",
+                JOptionPane.ERROR_MESSAGE));
         panel.add(button4);
 
         registerLayout(this, e -> manualLayout());
