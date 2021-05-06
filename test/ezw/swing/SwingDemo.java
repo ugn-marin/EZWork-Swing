@@ -56,11 +56,9 @@ public class SwingDemo extends JFrame {
         panel.add(scroll);
 
         label = new JLabel("test", JLabel.CENTER);
-        label.setSize(buttonSize);
         panel.add(label);
 
         button1 = new JButton("Open");
-        button1.setSize(buttonSize);
         panel.getRootPane().setDefaultButton(button1);
         button1.addActionListener(e -> new JFileChooser().showOpenDialog(this));
         panel.add(button1);
@@ -70,19 +68,16 @@ public class SwingDemo extends JFrame {
         panel.add(progress);
 
         button2 = new JButton("Cancel");
-        button2.setSize(buttonSize);
         button2.setToolTipText("Cancel");
         setButtonBaseColor(button2);
         panel.add(button2);
 
         button3 = new JButton("Disabled");
-        button3.setSize(buttonSize);
         button3.setToolTipText("Disabled");
         button3.setEnabled(false);
         panel.add(button3);
 
         button4 = new JButton("OK");
-        button4.setSize(buttonSize);
         button4.setToolTipText("OK");
         button4.addActionListener(e -> JOptionPane.showMessageDialog(this, "Example", "Title",
                 JOptionPane.ERROR_MESSAGE));
@@ -92,9 +87,15 @@ public class SwingDemo extends JFrame {
     }
 
     private void manualLayout() {
+        label.setSize(buttonSize);
+        button1.setSize(buttonSize);
+        progress.setSize(buttonSize);
+        button2.setSize(buttonSize);
+        button3.setSize(buttonSize);
+        button4.setSize(buttonSize);
+
         putInTopLeftCorner(scroll, 2);
         stretchRightIn(panel, scroll, 2);
-        progress.setSize(buttonSize);
         putInBottomLeftCornerIn(panel, progress, 4);
         putToTheRightOf(progress, button3, 10);
         putAbove(progress, button1, 8);
@@ -103,6 +104,7 @@ public class SwingDemo extends JFrame {
         putAbove(button1, label, 8);
         stretchDownTowards(label, scroll, 8);
         resizeCentered(progress, progress.getWidth() - 8, 12);
+
         scroll.revalidate();
         repaint();
     }
