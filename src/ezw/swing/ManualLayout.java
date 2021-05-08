@@ -3,8 +3,6 @@ package ezw.swing;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.function.Consumer;
 
 /**
@@ -15,7 +13,7 @@ public abstract class ManualLayout {
     private ManualLayout() {}
 
     /**
-     * Registers a manual layout operation for a parent's resize events, and window state change events if is a Window.
+     * Registers a manual layout operation for a parent's resize events.
      * @param parent The parent component.
      * @param manualLayout The manual layout operation.
      */
@@ -26,14 +24,6 @@ public abstract class ManualLayout {
                 manualLayout.accept(e);
             }
         });
-        if (parent instanceof Window) {
-            ((Window) parent).addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowStateChanged(WindowEvent e) {
-                    manualLayout.accept(e);
-                }
-            });
-        }
     }
 
     public static void putInTopLeftCorner(Component component, int margin) {
