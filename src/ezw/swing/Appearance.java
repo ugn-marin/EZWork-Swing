@@ -1,7 +1,10 @@
 package ezw.swing;
 
+import ezw.util.Sugar;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.Function;
 
 /**
  * Various look and feel utilities.
@@ -134,9 +137,7 @@ public abstract class Appearance {
      * Constructs an equal mix color of the provided colors.
      */
     public static Color mix(Color... colors) {
-        if (colors.length == 0)
-            return Color.gray;
-        var color = colors[0];
+        var color = Sugar.requireNonEmpty(colors)[0];
         for (int i = 1; i < colors.length; i++) {
             color = mix(color, colors[i], 1D / (i + 1));
         }
@@ -151,14 +152,10 @@ public abstract class Appearance {
      * @return The mixed color.
      */
     public static Color mix(Color base, Color add, double amount) {
-        return new Color(mix(base.getRed(), add.getRed(), amount),
-                mix(base.getGreen(), add.getGreen(), amount),
-                mix(base.getBlue(), add.getBlue(), amount),
-                mix(base.getAlpha(), add.getAlpha(), amount));
-    }
-
-    private static int mix(int base, int add, double amount) {
-        return (int) (((double) base) * (1D - amount) + ((double) add) * amount);
+        Function<Function<Color, Integer>, Integer> mixer = component ->
+                (int) (((double) component.apply(base)) * (1D - amount) + ((double) component.apply(add)) * amount);
+        return new Color(mixer.apply(Color::getRed), mixer.apply(Color::getGreen), mixer.apply(Color::getBlue),
+                mixer.apply(Color::getAlpha));
     }
 
     /**
