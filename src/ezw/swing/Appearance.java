@@ -137,7 +137,7 @@ public abstract class Appearance {
      * Constructs an equal mix color of the provided colors.
      */
     public static Color mix(Color... colors) {
-        var color = Sugar.requireNonEmpty(colors)[0];
+        var color = Sugar.first(colors);
         for (int i = 1; i < colors.length; i++) {
             color = mix(color, colors[i], 1D / (i + 1));
         }
