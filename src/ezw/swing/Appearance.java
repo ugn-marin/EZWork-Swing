@@ -1,6 +1,6 @@
 package ezw.swing;
 
-import ezw.util.Sugar;
+import ezw.Sugar;
 
 import javax.swing.*;
 import java.awt.*;

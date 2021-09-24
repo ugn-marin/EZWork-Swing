@@ -1,7 +1,7 @@
 package ezw.swing;
 
 import ezw.concurrent.Concurrent;
-import ezw.util.os.JVM;
+import ezw.os.JVM;
 
 import java.util.concurrent.ExecutionException;
 
