@@ -3,6 +3,7 @@ package ezw.swing;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static ezw.swing.Appearance.*;
 import static ezw.swing.ManualLayout.*;
@@ -67,9 +68,28 @@ public class SwingDemo extends JFrame {
         progress.setValue(20);
         panel.add(progress);
 
-        button2 = new JButton("Cancel");
+        var play = new AtomicBoolean();
+        button2 = new JButton("") {
+            @Override
+            public void paint(Graphics g) {
+                super.paint(g);
+                applyQualityRendering((Graphics2D) g);
+                var bounds = g.getClipBounds();
+                if (play.get()) {
+                    int x = (int) (bounds.getWidth() / 2 - 5);
+                    int y = (int) (bounds.getHeight() / 2 - 5);
+                    g.fillPolygon(new int[]{x, x, x + 10}, new int[]{y, y + 10, y + 5}, 3);
+                } else {
+                    int x = (int) (bounds.getWidth() / 2 - 4);
+                    int y = (int) (bounds.getHeight() / 2 - 4);
+                    g.fillRect(x, y, 2, 9);
+                    g.fillRect(x + 4, y, 2, 9);
+                }
+            }
+        };
         button2.setToolTipText("Cancel");
         setButtonBaseColor(button2);
+        button2.addActionListener(e -> play.set(!play.get()));
         panel.add(button2);
 
         button3 = new JButton("Disabled");
