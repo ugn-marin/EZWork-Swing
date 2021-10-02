@@ -77,14 +77,20 @@ public abstract class Appearance {
     }
 
     /**
-     * Applies a dark blue Nimbus look and feel.
+     * Applies a dark blueish Nimbus look and feel.
      */
     public static void setNimbusDarkBlueish() {
-        var blueish = mix(Color.blue, Color.green, 0.2D);
-        setNimbus(mix(mix(blueish, Color.darkGray, 0.7D).darker(), Color.black, 0.4D),
-                mix(blueish, Color.gray, 0.4D).brighter(),
-                mix(blueish, Color.lightGray, 0.9D).brighter(),
-                mix(blueish.darker(), Color.darkGray, 0.9D));
+        setNimbusDarkTint(mix(Color.blue, Color.green, 0.2D));
+    }
+
+    /**
+     * Applies a dark Nimbus look and feel with a global tint.
+     */
+    public static void setNimbusDarkTint(Color tint) {
+        setNimbus(mix(mix(tint, Color.darkGray, 0.7D).darker(), Color.black, 0.4D),
+                mix(tint, Color.gray, 0.4D).brighter(),
+                mix(tint, Color.lightGray, 0.9D).brighter(),
+                mix(tint.darker(), Color.darkGray, 0.9D));
     }
 
     /**
