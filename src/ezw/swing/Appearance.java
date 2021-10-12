@@ -101,33 +101,31 @@ public abstract class Appearance {
      * @param background The default background and control color.
      */
     public static void setNimbus(Color base, Color focus, Color foreground, Color background) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    if (base != null) {
-                        UIManager.put("nimbusBase", base);
-                        UIManager.put("nimbusBlueGrey", mix(base.brighter(), Color.lightGray, 0.45D));
-                    }
-                    if (focus != null) {
-                        UIManager.put("nimbusFocus", focus);
-                        UIManager.put("nimbusOrange", focus.brighter());
-                        UIManager.put("nimbusSelectionBackground", mix(focus.darker(), Color.darkGray, 0.7D));
-                        UIManager.put("nimbusSelectedText", Color.white);
-                    }
-                    if (foreground != null) {
-                        UIManager.put("text", foreground);
-                        UIManager.put("nimbusDisabledText", mix(foreground, Color.gray, 0.3D));
-                    }
-                    if (background != null) {
-                        UIManager.put("control", background);
-                        UIManager.put("info", mix(background, Color.gray, 0.2D));
-                        UIManager.put("nimbusLightBackground", background.brighter());
-                    }
-                    break;
+        for (var info : UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                Sugar.sneaky(() -> UIManager.setLookAndFeel(info.getClassName()));
+                if (base != null) {
+                    UIManager.put("nimbusBase", base);
+                    UIManager.put("nimbusBlueGrey", mix(base.brighter(), Color.lightGray, 0.45D));
                 }
+                if (focus != null) {
+                    UIManager.put("nimbusFocus", focus);
+                    UIManager.put("nimbusOrange", focus.brighter());
+                    UIManager.put("nimbusSelectionBackground", mix(focus.darker(), Color.darkGray, 0.7D));
+                    UIManager.put("nimbusSelectedText", Color.white);
+                }
+                if (foreground != null) {
+                    UIManager.put("text", foreground);
+                    UIManager.put("nimbusDisabledText", mix(foreground, Color.gray, 0.3D));
+                }
+                if (background != null) {
+                    UIManager.put("control", background);
+                    UIManager.put("info", mix(background, Color.gray, 0.2D));
+                    UIManager.put("nimbusLightBackground", background.brighter());
+                }
+                break;
             }
-        } catch (Exception ignore) {}
+        }
     }
 
     /**
