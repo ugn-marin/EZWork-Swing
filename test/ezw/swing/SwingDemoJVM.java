@@ -1,14 +1,13 @@
 package ezw.swing;
 
 import ezw.concurrent.Concurrent;
+import ezw.function.Reducer;
 import ezw.runtime.JVM;
-
-import java.util.concurrent.ExecutionException;
 
 public class SwingDemoJVM {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Concurrent.getAll(Concurrent.calculate(new JVM(SwingDemo.class)),
-                Concurrent.calculate(new JVM(SwingDemo.class)));
+    public static void main(String[] args) throws Exception {
+        Concurrent.getAll(Reducer.last(), Concurrent.run(new JVM(SwingDemo.class)),
+                Concurrent.run(new JVM(SwingDemo.class)));
     }
 }
