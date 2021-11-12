@@ -22,7 +22,7 @@ public class SwingDemo extends JFrame {
     private final JScrollPane scroll;
 
     public static void main(String[] args) {
-        setNimbusBlack();
+        setNimbusBlack(mix(Color.cyan, Color.blue));
         new SwingDemo().setVisible(true);
     }
 
