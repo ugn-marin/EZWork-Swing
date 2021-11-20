@@ -27,7 +27,7 @@ public class SwingDemo extends JFrame {
     }
 
     SwingDemo() {
-        super("EZWork Swing Demo");
+        super("Swing Demo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 330);
         setMinimumSize(new Dimension(400, 230));
